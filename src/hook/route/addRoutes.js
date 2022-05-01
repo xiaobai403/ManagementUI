@@ -38,7 +38,6 @@ function createRoute(it) {
     routeItem["name"] = it.name
     routeItem["component"] = () => import(`@/${it.path}`)
     if (it.meta !== undefined && it.meta !== null && it.meta.redirect !== undefined) {
-        console.log(it)
         routeItem["redirect"] = it.meta.redirect
     }
     if (it.children !== undefined && it.children !== null) {

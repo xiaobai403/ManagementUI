@@ -23,3 +23,12 @@ export const ok = (info="请求成功") => {
         type: 'success',
     })
 }
+
+export const error = (error) => {
+    ElMessage({
+        showClose: true,
+        message: `${error}`,
+        type: 'error',
+    })
+}
+

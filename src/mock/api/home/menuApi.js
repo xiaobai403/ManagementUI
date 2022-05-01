@@ -7,7 +7,7 @@ export function getMenu() {
                 "name": "accountsContainer",
                 "label": null,
                 "url": "/accountsContainer",
-                "path": "views/Accounts",
+                "path": "views/Accounts/Container",
                 "icon": null,
                 "disable": false,
                 "category": 2,
@@ -77,7 +77,7 @@ export function getMenu() {
                 "name": "home",
                 "label": "首页",
                 "url": "/home.html",
-                "path": "views/Home/",
+                "path": "views/Home/Home",
                 "icon": "icon-home",
                 "disable": false,
                 "category": 1,
@@ -88,12 +88,12 @@ export function getMenu() {
                 "name": "recordsContainer",
                 "label": null,
                 "url": "/records/container",
-                "path": "views/Records/",
+                "path": "views/Records/Container",
                 "icon": null,
                 "disable": false,
                 "category": 2,
                 "meta": {
-                    "redirect": "/records.html"
+                    "redirect": "/Records.html"
                 },
                 "children": [
                     {

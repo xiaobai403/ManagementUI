@@ -2,7 +2,7 @@ import axios from "axios";
 import {promiseError} from "@/hook/message/handleMessage";
 
 const request = axios.create({
-    baseURL: '/api',
+    baseURL: '/mock',
     timeout: 3000
 })
 

@@ -19,8 +19,6 @@ router.beforeEach(async (to, from, next) => {
 
     const store = useMenu()
 
-    console.log("路由守卫执行了")
-
     /**
      * 判断路由是否存在。
      *  1. 存在。则什么都不做

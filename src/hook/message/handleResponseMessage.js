@@ -10,6 +10,16 @@ export const handleRequestRef = (response, loading, successCode = 200) => {
     }
 }
 
+export const handleRequestRefFun = (response, loading, func, args, successCode = 200) => {
+    loading.value = false
+    if (response.code === successCode) {
+        ok()
+        func(...args)
+    } else {
+        responseError(response)
+    }
+}
+
 export const handleErrorRef = (error, loading) => {
     loading.value = false
     promiseError(error)
