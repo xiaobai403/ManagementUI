@@ -4,7 +4,7 @@
         <el-col :span="6"></el-col>
         <el-col :span="12" class="bookInfoContainer">
             <el-form
-                ref="formRef"
+          gt      ref="formRef"
                 :model="book"
                 label-width="120px"
                 class="bookInfoForm"
