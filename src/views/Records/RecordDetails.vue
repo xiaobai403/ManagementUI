@@ -116,8 +116,8 @@ const changeReturnStatus = () => {
 const changeBreachOfContractStatus = () => {
     changeBreachOfContractLoading.value = true
     return new Promise((resolve, reject) => {
-        reqChangeBreachOfContractStatus(record.borrowId, record.isReturn)
-            .then(response => handleRequestRefSwitch(response, changeReturnLoading, resolve, reject),
+        reqChangeBreachOfContractStatus(record.borrowId, record.isBreachOfContract)
+            .then(response => handleRequestRefSwitch(response, changeBreachOfContractLoading, resolve, reject),
                 error => handleErrorRefSwitch(error, changeBreachOfContractLoading, reject))
     })
 }
