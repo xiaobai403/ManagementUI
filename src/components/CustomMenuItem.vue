@@ -9,7 +9,7 @@
             <div class="iconfont" :class="item.icon"/>
             <span>{{ item.label }}</span>
         </template>
-        <el-menu-item v-for="i in item.children" :index="i.name" :key="i.url">
+        <el-menu-item v-for="i in item.children" :index="i.url" :key="i.url">
             <div class="iconfont" :class="i.icon"/>
             <span>{{ i.label }}</span>
         </el-menu-item>

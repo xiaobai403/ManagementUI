@@ -110,9 +110,9 @@
                         <el-button
                             type="text"
                             size="small"
-                            :loading="userDeleteLoading"
+                            :loading="scope.row.deleteLoading"
                             style="color: #F56C6C"
-                            @click="deleteUser(scope.row.id)">
+                            @click="deleteUser(scope.row.id, scope.row)">
                             删除用户
                         </el-button>
                     </template>
@@ -127,7 +127,7 @@
 
 <script setup>
 
-import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref, toRaw} from "vue";
 import {
     handleErrorReactive,
     handleErrorRef,
@@ -141,7 +141,6 @@ import AddUserForm from "@/views/Accounts/AddUserForm";
 import ResetUserPasswordForm from "@/views/Accounts/ResetUserPasswordForm";
 import {useAccount} from "@/store/useAccount";
 import {useRouter} from "vue-router";
-import {toRaw} from "vue/dist/vue";
 
 // 表格数据
 const userInfo = ref([])

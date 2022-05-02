@@ -1,80 +1,79 @@
 <template>
     <el-page-header content="用户信息" @back="goBack"/>
-    <el-row :gutter="20" align="middle" justify="center">
-        <el-col :span="6"></el-col>
-        <el-col :span="12" class="userInfoContainer">
-            <el-form
-                ref="formRef"
-                :model="userInfo"
-                :rules="rules"
-                label-width="120px"
-                class="userInfoForm"
-            >
-                <el-form-item label="头像">
-                    <el-avatar :src="userInfo.avatar"/>
-                    <el-button size="small" plain class="upload-avatar">上传头像</el-button>
-                </el-form-item>
-                <el-form-item label="昵称" prop="nickname">
-                    <el-input v-model="userInfo.nickname"/>
-                    <el-button
-                        :disabled="disableSaveButton.nickname"
-                        type="text"
-                        :loading="loading.nickname"
-                        @click="saveNickname(userInfo.id, userInfo.nickname)">保存</el-button>
-                </el-form-item>
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="userInfo.email"/>
-                    <el-button
-                        :disabled="disableSaveButton.email"
-                        type="text"
-                        :loading="loading.email"
-                        @click="saveEmail(userInfo.id, userInfo.email)">保存</el-button>
-                </el-form-item>
-                <el-form-item label="唯一标识" prop="region">
-                    <el-input v-model="userInfo.id" disabled/>
-                </el-form-item>
-                <el-form-item label="用户状态">
-                    <el-switch
-                        v-if="enableStatusSwitch"
-                        v-model="userInfo.status"
-                        :loading="statusLoading"
-                        :before-change="changeAccountStatus"
-                        active-color="#13ce66"
-                        inactive-color="#E6A23C"
-                        :active-value="0"
-                        :inactive-value="1"
-                    />
-                    <span :style="`color: ${accountStatusColor}`" class="statusInfo">
+    <div class="userInfoContainer">
+        <el-form
+            ref="formRef"
+            :model="userInfo"
+            :rules="rules"
+            label-width="120px"
+            class="userInfoForm"
+        >
+            <el-form-item label="头像">
+                <el-avatar :src="userInfo.avatar"/>
+                <el-button size="small" plain class="upload-avatar">上传头像</el-button>
+            </el-form-item>
+            <el-form-item label="昵称" prop="nickname">
+                <el-input v-model="userInfo.nickname"/>
+                <el-button
+                    :disabled="disableSaveButton.nickname"
+                    type="text"
+                    :loading="loading.nickname"
+                    @click="saveNickname(userInfo.id, userInfo.nickname)">保存
+                </el-button>
+            </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+                <el-input v-model="userInfo.email"/>
+                <el-button
+                    :disabled="disableSaveButton.email"
+                    type="text"
+                    :loading="loading.email"
+                    @click="saveEmail(userInfo.id, userInfo.email)">保存
+                </el-button>
+            </el-form-item>
+            <el-form-item label="唯一标识" prop="region">
+                <el-input v-model="userInfo.id" disabled/>
+            </el-form-item>
+            <el-form-item label="用户状态">
+                <el-switch
+                    v-if="enableStatusSwitch"
+                    v-model="userInfo.status"
+                    :loading="statusLoading"
+                    :before-change="changeAccountStatus"
+                    active-color="#13ce66"
+                    inactive-color="#E6A23C"
+                    :active-value="0"
+                    :inactive-value="1"
+                />
+                <span :style="`color: ${accountStatusColor}`" class="statusInfo">
                          {{ accountStatusString }}
                     </span>
-                </el-form-item>
-                <el-form-item label="用户权限">
-                    <el-input v-model="userInfo.role" disabled/>
-                </el-form-item>
-                <el-form-item label="性别" prop="sex">
-                    <el-select v-model="userInfo.sex" class="m-2" placeholder="Select">
-                        <el-option value="男"/>
-                        <el-option value="女"/>
-                    </el-select>
-                    <el-button
-                        :disabled="disableSaveButton.sex"
-                        type="text"
-                        :loading="loading.sex"
-                        @click="saveSex(userInfo.id, userInfo.sex)">保存</el-button>
-                </el-form-item>
-                <el-form-item label="年龄" prop="age">
-                    <el-input v-model.number="userInfo.age"/>
-                    <el-button
-                        :disabled="disableSaveButton.age"
-                        type="text"
-                        :loading="loading.age"
-                        @click="saveAge(userInfo.id, userInfo.age)">保存</el-button>
-                </el-form-item>
-            </el-form>
-
-        </el-col>
-        <el-col :span="6"></el-col>
-    </el-row>
+            </el-form-item>
+            <el-form-item label="用户权限">
+                <el-input v-model="userInfo.role" disabled/>
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+                <el-select v-model="userInfo.sex" class="m-2" placeholder="Select">
+                    <el-option value="男"/>
+                    <el-option value="女"/>
+                </el-select>
+                <el-button
+                    :disabled="disableSaveButton.sex"
+                    type="text"
+                    :loading="loading.sex"
+                    @click="saveSex(userInfo.id, userInfo.sex)">保存
+                </el-button>
+            </el-form-item>
+            <el-form-item label="年龄" prop="age">
+                <el-input v-model.number="userInfo.age"/>
+                <el-button
+                    :disabled="disableSaveButton.age"
+                    type="text"
+                    :loading="loading.age"
+                    @click="saveAge(userInfo.id, userInfo.age)">保存
+                </el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 
 <script setup>
@@ -170,7 +169,6 @@ function changeAccountStatus() {
 }
 
 
-
 // 可编辑选项保存
 
 /**
@@ -255,8 +253,13 @@ function goBack() {
 
 <style scoped lang="less">
 .userInfoContainer {
+    display: flex;
+    justify-content: center;
+
     .userInfoForm {
-        margin-top: 10%;
+        margin-top: 50px;
+        padding: 0 150px 0 20px;
+        width: 480px;
 
         .el-input {
             width: 300px;

@@ -1,69 +1,67 @@
 <template>
     <el-page-header content="用户信息" @back="goBack"/>
-    <el-row :gutter="20" align="middle" justify="center">
-        <el-col :span="6"></el-col>
-        <el-col :span="12" class="userInfoContainer">
-            <el-form
-                ref="formRef"
-                :model="record"
-                label-width="120px"
-                class="userInfoForm"
-            >
-                <el-form-item label="借阅ID">
-                    <el-input disabled v-model="record.borrowId"/>
-                </el-form-item>
-                <el-form-item label="用户名">
-                    <el-input disabled v-model="record.username"/>
-                </el-form-item>
-                <el-form-item label="书名">
-                    <el-input disabled v-model="record.bookName"/>
-                </el-form-item>
-                <el-form-item label="借阅日期">
-                    <el-input disabled v-model="record.id"/>
-                </el-form-item>
-                <el-form-item label="续借次数">
-                    <el-select v-model="record.renewNumbers" placeholder="Select">
-                        <el-option value="1"/>
-                        <el-option value="2"/>
-                        <el-option value="3"/>
-                        <el-option value="4"/>
-                        <el-option value="5"/>
-                    </el-select>
-                    <el-button
-                        :disabled="disableRenewNumber"
-                        type="text"
-                        :loading="changeRenewNumbersLoading"
-                        @click="saveRenewNumbers(record.borrowId, record.renewNumbers)">保存</el-button>
-                </el-form-item>
-                <el-form-item label="是否归还">
-                    <el-switch
-                        v-model="record.isReturn"
-                        :loading="changeReturnLoading"
-                        inline-prompt
-                        active-color="#13ce66"
-                        inactive-color="#E6A23C"
-                        active-text="是"
-                        inactive-text="否"
-                        :beforeChange="changeReturnStatus"
-                    />
-                </el-form-item>
-                <el-form-item label="是否违约">
-                    <el-switch
-                        v-model="record.isBreachOfContract"
-                        inline-prompt
-                        :loading="changeBreachOfContractLoading"
-                        active-color="#F56C6C"
-                        inactive-color="#13ce66"
-                        active-text="是"
-                        inactive-text="否"
-                        :beforeChange="changeBreachOfContractStatus"
-                    />
-                </el-form-item>
-            </el-form>
+    <div class="recordsContainer">
+        <el-form
+            ref="formRef"
+            :model="record"
+            label-width="120px"
+            class="recordsForm"
+        >
+            <el-form-item label="借阅ID">
+                <el-input disabled v-model="record.borrowId"/>
+            </el-form-item>
+            <el-form-item label="用户名">
+                <el-input disabled v-model="record.username"/>
+            </el-form-item>
+            <el-form-item label="书名">
+                <el-input disabled v-model="record.bookName"/>
+            </el-form-item>
+            <el-form-item label="借阅日期">
+                <el-input disabled v-model="record.id"/>
+            </el-form-item>
+            <el-form-item label="续借次数">
+                <el-select v-model="record.renewNumbers" placeholder="Select">
+                    <el-option value="1"/>
+                    <el-option value="2"/>
+                    <el-option value="3"/>
+                    <el-option value="4"/>
+                    <el-option value="5"/>
+                </el-select>
+                <el-button
+                    :disabled="disableRenewNumber"
+                    type="text"
+                    :loading="changeRenewNumbersLoading"
+                    @click="saveRenewNumbers(record.borrowId, record.renewNumbers)">保存
+                </el-button>
+            </el-form-item>
+            <el-form-item label="是否归还">
+                <el-switch
+                    v-model="record.isReturn"
+                    :loading="changeReturnLoading"
+                    inline-prompt
+                    active-color="#13ce66"
+                    inactive-color="#E6A23C"
+                    active-text="是"
+                    inactive-text="否"
+                    :beforeChange="changeReturnStatus"
+                />
+            </el-form-item>
+            <el-form-item label="是否违约">
+                <el-switch
+                    v-model="record.isBreachOfContract"
+                    inline-prompt
+                    :loading="changeBreachOfContractLoading"
+                    active-color="#F56C6C"
+                    inactive-color="#13ce66"
+                    active-text="是"
+                    inactive-text="否"
+                    :beforeChange="changeBreachOfContractStatus"
+                />
+            </el-form-item>
+        </el-form>
 
-        </el-col>
-        <el-col :span="6"></el-col>
-    </el-row>
+    </div>
+
 </template>
 
 <script setup>
@@ -138,10 +136,14 @@ const goBack = () => {
 </script>
 
 <style scoped lang="less">
-.userInfoContainer {
+.recordsContainer {
+    display: flex;
+    justify-content: center;
 
-    .userInfoForm {
-        margin-top: 10%;
+    .recordsForm {
+        margin-top: 50px;
+        padding: 0 150px 0 20px;
+        width: 480px;
 
         .el-input {
             width: 300px;
