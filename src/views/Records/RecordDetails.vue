@@ -135,9 +135,6 @@ const goBack = () => {
     PubSub.publish(REFRESH_RECORDS_INFO)
 }
 
-
-
-
 </script>
 
 <style scoped lang="less">

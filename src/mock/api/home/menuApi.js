@@ -43,7 +43,7 @@ export function getMenu() {
                 "name": "bookGroup",
                 "label": "图书管理",
                 "url": "/books/container",
-                "path": "views/Books/",
+                "path": "views/Books/Container",
                 "icon": "icon-book-fill",
                 "disable": false,
                 "category": 0,
@@ -68,6 +68,17 @@ export function getMenu() {
                         "icon": "icon-book1",
                         "disable": false,
                         "category": 1,
+                        "meta": null,
+                        "children": null
+                    },
+                    {
+                        "name": "bookDetails",
+                        "label": null,
+                        "url": "/books/details.html/:isbn",
+                        "path": "views/Books/BookDetails",
+                        "icon": null,
+                        "disable": false,
+                        "category": 3,
                         "meta": null,
                         "children": null
                     }

@@ -9,6 +9,8 @@ import overviewInfoApi from "@/mock/api/home/overviewInfoApi"
 import userInfoApi from "@/mock/api/account/userInfoApi";
 import ok from "@/mock/api/okApi";
 import getRecordsApi from "@/mock/api/records/getRecordsApi";
+import getBooksApi from "@/mock/api/books/getBooksApi";
+import deleteBookApi from "@/mock/api/books/deleteBookApi";
 
 Mock.mock('/mock/login', 'POST', login)
 Mock.mock('/mock/menu', 'GET', getMenu)
@@ -28,4 +30,9 @@ Mock.mock('/mock/user/age/**', 'PUT', ok)
 // Records
 Mock.mock('/mock/records/borrowId/**', 'GET', getRecordsApi)
 Mock.mock('/mock/records/**', 'DELETE', ok)
+
+// Books
+Mock.mock('/mock/books/isbn/**', 'GET', getBooksApi)
+Mock.mock('/mock/books/**', 'DELETE', deleteBookApi)
+
 

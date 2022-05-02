@@ -42,6 +42,16 @@ export const handleErrorRefSwitch = (error, loading, reject) => {
     return reject(error)
 }
 
+export const handleRequestReactiveFun = (response, loading, loadingAttribute, func, args, successCode = 200) => {
+    loading[loadingAttribute] = false
+    if (response.code === successCode) {
+        ok()
+        func(...args)
+    } else {
+        responseError(response)
+    }
+}
+
 export const handleRequestReactive = (response, loading, loadingAttribute, saveButtonStatus, statusAttribute, successCode = 200) => {
     loading[loadingAttribute] = false
     if (response.code === successCode) {
@@ -72,6 +82,16 @@ export const handleErrorReactiveSwitch = (error, loading, attribute, reject) => 
     loading[attribute] = false
     promiseError(error)
     return reject(error)
+}
+
+export const handleRequestOneAttributeFun = (response, loading, func, args, successCode = 200) => {
+    loading = false
+    if (response.code === successCode) {
+        ok()
+        func(...args)
+    } else {
+        responseError(response)
+    }
 }
 
 

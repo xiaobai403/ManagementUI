@@ -35,6 +35,26 @@ export const reqChangeBreachOfContractStatus = (borrowId, status) => request.put
 export const reqChangeRenewNumbers = (borrowId, numbers) => request.put(`/records/renewNumbers`, qs.stringify({ borrowId, numbers }))
 
 
+// Books部分
+export const reqSearchBooksByISBN = (isbn) => request.get(`/books/isbn/${isbn}`)
+export const reqSearchBooksByBookName = (bookName) => request.get(`/books/bookName/${bookName}`)
+export const reqSearchBooksByAuthor = (author) => request.get(`/books/author/${author}`)
+export const reqSearchBooksByPublisher = (publisher) => request.get(`/books/publisher/${publisher}`)
+
+// export const reqDeleteBooks = (isbn) => mock.delete(`/books/`, qs.stringify({ isbn }))
+export const reqDeleteBooks = (isbn) => request.delete(`/books/${isbn}` )
+
+export const reqChangeAuthor = (isbn, author) => request.put(`/books/author/`, qs.stringify({ isbn, author }))
+export const reqChangePublisher = (isbn, publisher) => request.put(`/books/publisher/`, qs.stringify({ isbn, publisher }))
+export const reqChangeKeywords = (isbn, keywords) => request.put(`/books/keywords/`, qs.stringify({ isbn, keywords }))
+export const reqChangeCategory = (isbn, category) => request.put(`/books/category/`, qs.stringify({ isbn, category }))
+export const reqChangeNumber = (isbn, number) => request.put(`/books/number/`, qs.stringify({ isbn, number }))
+export const reqChangeBriefIntroduction = (isbn, introduction) => request.put(`/books/introduction/`, qs.stringify({ isbn, introduction }))
+export const reqChangeBorrowStatus = (isbn, status) => request.put(`/books/status/`, qs.stringify({ isbn, status }))
+
+
+
+
 
 
 
