@@ -5,7 +5,7 @@
             ref="formRef"
             :model="userInfo"
             :rules="rules"
-            label-width="120px"
+            label-width="80px"
             class="userInfoForm"
         >
             <el-form-item label="头像">

@@ -4,7 +4,7 @@
         <el-form
             ref="formRef"
             :model="record"
-            label-width="120px"
+            label-width="80px"
             class="recordsForm"
         >
             <el-form-item label="借阅ID">

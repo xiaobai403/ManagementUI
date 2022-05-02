@@ -14,9 +14,7 @@ import {addRoute} from "@/hook/route/addRoutes";
 createApp(App).use(router).use(createPinia()).use(ElementPlus).mount('#app')
 
 router.beforeEach(async (to, from, next) => {
-    const jwt = localStorage.getItem('jwt') || ''
-    // const checked = sessionStorage.getItem('checked')
-
+    const jwt = localStorage.getItem('jwt')
     const store = useMenu()
 
     /**
@@ -26,8 +24,14 @@ router.beforeEach(async (to, from, next) => {
      *      1) 从缓存中读取路由信息，并且添加路由
      *      2) 缓存中没有路由信息，则直接跳转到登陆页面，重新申请缓存
      */
-    if (!router.hasRoute("home") && to.name !== "login" && to.name !== 'main') {
-        if (jwt === null) {
+    if (!router.hasRoute("home")) {
+
+        if (to.name === 'login') {
+            next()
+            return
+        }
+
+        if (jwt === undefined || jwt === null) {
             next({name: "login"})
             return
         }
@@ -40,19 +44,30 @@ router.beforeEach(async (to, from, next) => {
                 store.$menu = response.data
                 // 动态路由添加
                 addRoute(response.data, router)
+                next(to.path)
             } else {
                 responseError(response)
+                next({ name: "home" })
             }
 
         } catch (e) {
             promiseError(e)
+            next({ name: "home" })
         }
 
-        next(to.path)
-        return
+    } else {
+        // 用户身份已经验证过
+        if (to.name === 'login') {
+            next({ name: "home" })
+        } else {
+            next()
+        }
     }
 
-    next()
+
+
+
+
 })
 
 
