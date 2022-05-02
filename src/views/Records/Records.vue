@@ -87,8 +87,8 @@
                         type="danger"
                         plain
                         size="small"
-                        :loading="deleteRecordsLoading"
-                        @click="deleteRecords(scope.row.borrowId)">
+                        :loading="scope.row.deleteLoading"
+                        @click="deleteRecords(scope.row.borrowId, scope.row)">
                         删除
                     </el-button>
                 </template>
@@ -99,9 +99,13 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
-import {ok, responseError} from "@/hook/message/handleMessage";
-import {handleErrorRef, handleRequestRefFun} from "@/hook/message/handleResponseMessage";
+import {onBeforeUnmount, onMounted, reactive, ref, toRaw} from "vue";
+import {
+    handleErrorReactive,
+    handleErrorRef,
+    handleRequestOneAttributeFun,
+    handleRequestRefFun
+} from "@/hook/message/handleResponseMessage";
 import {
     reqDeleteRecords,
     reqSearchRecordsByBookName,
@@ -121,14 +125,14 @@ const search = reactive({
     searchInfo: ""
 })
 
-const handleSearch = (response, loading, records, successCode = 200) => {
-    loading.value = false
-    if (response.code === successCode) {
-        ok()
-        records.value = response.data
-    } else {
-        responseError(response)
-    }
+
+const handleSearchResponse = (records, response) => {
+    const data = response.data.map(i => {
+        i['deleteLoading'] = false
+        return i
+    })
+
+    records.value = data
 }
 
 const searchLoading = ref(false)
@@ -137,30 +141,34 @@ const searchRecords = () => {
     searchLoading.value = true
     switch (search.condition) {
         case 'borrowId':
-            reqSearchRecordsByBorrowId(search.searchInfo).then(response => handleSearch(response, searchLoading, records), error => handleErrorRef(error, searchLoading))
+            reqSearchRecordsByBorrowId(search.searchInfo)
+                .then(response => handleRequestRefFun(response, searchLoading, handleSearchResponse, [records, response]),
+                    error => handleErrorRef(error, searchLoading))
             break
         case 'username':
-            reqSearchRecordsByUsername(search.searchInfo).then(response => handleSearch(response, searchLoading, records), error => handleErrorRef(error, searchLoading))
+            reqSearchRecordsByUsername(search.searchInfo)
+                .then(response => handleRequestRefFun(response, searchLoading, handleSearchResponse, [records, response]),
+                    error => handleErrorRef(error, searchLoading))
             break
         case 'bookName':
-            reqSearchRecordsByBookName(search.searchInfo).then(response => handleSearch(response, searchLoading, records), error => handleErrorRef(error, searchLoading))
+            reqSearchRecordsByBookName(search.searchInfo)
+                .then(response => handleRequestRefFun(response, searchLoading, handleSearchResponse, [records, response]),
+                    error => handleErrorRef(error, searchLoading))
             break
     }
 }
 
 
 // 删除Records部分
-const deleteRecordsLoading = ref(false)
-
 const removeRecord = (records, borrowId) => {
-    records.value = records.value.filter(i => i.borrowId !== borrowId)
+    records.value = toRaw(records.value).filter(i => i.borrowId !== borrowId)
 }
 
-const deleteRecords = (borrowId) => {
-    deleteRecordsLoading.value = true
+const deleteRecords = (borrowId, currentRecord) => {
+    currentRecord.deleteLoading = true
     reqDeleteRecords(borrowId).then(response => {
-        handleRequestRefFun(response, deleteRecordsLoading, removeRecord, [records, borrowId])
-    }, error => handleErrorRef(error, deleteRecordsLoading))
+        handleRequestOneAttributeFun(response, currentRecord, "deleteLoading", removeRecord, [records, borrowId])
+    }, error => handleErrorReactive(error, currentRecord, "deleteLoading"))
 }
 
 

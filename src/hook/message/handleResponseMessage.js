@@ -84,8 +84,8 @@ export const handleErrorReactiveSwitch = (error, loading, attribute, reject) => 
     return reject(error)
 }
 
-export const handleRequestOneAttributeFun = (response, loading, func, args, successCode = 200) => {
-    loading = false
+export const handleRequestOneAttributeFun = (response, loading, attribute, func, args, successCode = 200) => {
+    loading[attribute] = false
     if (response.code === successCode) {
         ok()
         func(...args)

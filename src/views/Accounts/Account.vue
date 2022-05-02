@@ -128,27 +128,36 @@
 <script setup>
 
 import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
-import {handleErrorRef, handleRequestRef} from "@/hook/message/handleResponseMessage";
+import {
+    handleErrorReactive,
+    handleErrorRef,
+    handleRequestOneAttributeFun,
+    handleRequestRefFun
+} from "@/hook/message/handleResponseMessage";
 import {reqDeleteUser, reqGetUserByNickname, reqGetUserByUsername} from "@/api";
-import {ok, promiseError, responseError} from "@/hook/message/handleMessage";
 import PubSub from "pubsub-js";
 import {CLOSE_ADD_USER, CLOSE_RESET_PASSWORD, REFRESH_INFO} from "@/pattern/eventTypes";
 import AddUserForm from "@/views/Accounts/AddUserForm";
 import ResetUserPasswordForm from "@/views/Accounts/ResetUserPasswordForm";
 import {useAccount} from "@/store/useAccount";
 import {useRouter} from "vue-router";
+import {toRaw} from "vue/dist/vue";
 
 // 表格数据
 const userInfo = ref([])
 
 
 // 用户删除
-let userDeleteLoading = ref(false)
-function deleteUser(id) {
-    userDeleteLoading.value = true
+const removeUser = (userInfo, id) => {
+    userInfo.value = toRaw(userInfo.value).filter(i => i.id !== id)
+}
+
+
+function deleteUser(id, currentUser) {
+    currentUser.deleteLoading = true
     reqDeleteUser(id).then(response => {
-        handleRequestRef(response, userDeleteLoading)
-    }, error => handleErrorRef(error, userDeleteLoading))
+        handleRequestOneAttributeFun(response, currentUser, "deleteLoading", removeUser, [userInfo, id])
+    }, error => handleErrorReactive(error, currentUser, "deleteLoading"))
 }
 
 
@@ -173,21 +182,26 @@ const search = reactive({
     searchInfo: ""
 })
 const searchLoading = ref(false)
-const handleSearch = (response, loading, userInfo, successCode = 200) => {
-    loading.value = false
-    if (response.code === successCode) {
-        ok()
-        userInfo.value = response.data
-    } else {
-        responseError(response)
-    }
+
+const handleSearchResponse = (records, response) => {
+    const data = response.data.map(i => {
+        i['deleteLoading'] = false
+        return i
+    })
+
+    userInfo.value = data
 }
+
 function searchUser() {
     searchLoading.value = true
     if (search.condition === 'username' || search.condition === 'email') {
-        reqGetUserByUsername(search.searchInfo).then(response => handleSearch(response, searchLoading, userInfo), error => handleErrorRef(error, searchLoading))
+        reqGetUserByUsername(search.searchInfo)
+            .then(response => handleRequestRefFun(response, searchLoading, handleSearchResponse, [userInfo, response]),
+                error => handleErrorRef(error, searchLoading))
     } else if (search.condition === 'nickname') {
-        reqGetUserByNickname(search.searchInfo).then(response => handleSearch(response, searchLoading, userInfo), error => handleErrorRef(error, searchLoading))
+        reqGetUserByNickname(search.searchInfo)
+            .then(response => handleRequestRefFun(response, searchLoading, handleSearchResponse, [userInfo, response]),
+                error => handleErrorRef(error, searchLoading))
     }
 }
 

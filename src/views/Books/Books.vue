@@ -110,6 +110,7 @@ import {
     reqSearchBooksByPublisher
 } from "@/api";
 import {
+    handleErrorReactive,
     handleErrorRef,
     handleRequestOneAttributeFun,
     handleRequestRefFun
@@ -174,8 +175,8 @@ const deleteBookFromTable = (books, isbn) => {
 const deleteBooks = (isbn, currentBook) => {
     currentBook.deleteLoading = true
     reqDeleteBooks(isbn).then(response =>
-            handleRequestOneAttributeFun(response, currentBook.deleteLoading, deleteBookFromTable, [books, isbn]),
-            error => handleErrorRef(error))
+            handleRequestOneAttributeFun(response, currentBook, "deleteLoading", deleteBookFromTable, [books, isbn]),
+            error => handleErrorReactive(error, currentBook, "deleteLoading"))
 }
 
 // 跳转到详情页面
