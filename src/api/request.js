@@ -24,6 +24,6 @@ request.interceptors.response.use(response => {
         // TODO 抛出异常。与服务器连接失败。
     }
 
-}, error => promiseError(error))
+}, error => Promise.reject(error))
 
 export default request

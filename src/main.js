@@ -17,6 +17,11 @@ router.beforeEach(async (to, from, next) => {
     const jwt = localStorage.getItem('jwt')
     const store = useMenu()
 
+    if (to.name === 'login') {
+        next()
+        return
+    }
+
     /**
      * 判断路由是否存在。
      *  1. 存在。则什么都不做
@@ -25,11 +30,6 @@ router.beforeEach(async (to, from, next) => {
      *      2) 缓存中没有路由信息，则直接跳转到登陆页面，重新申请缓存
      */
     if (!router.hasRoute("home")) {
-
-        if (to.name === 'login') {
-            next()
-            return
-        }
 
         if (jwt === undefined || jwt === null) {
             next({name: "login"})
