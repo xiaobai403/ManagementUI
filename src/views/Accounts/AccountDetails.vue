@@ -83,10 +83,12 @@ import {useAccount} from "@/store/useAccount";
 import {error, ok, responseError} from "@/hook/message/handleMessage";
 import {handleErrorReactive, handleErrorRef, handleRequestReactive} from "@/hook/message/handleResponseMessage";
 import {reqChangeAccountStatus, reqChangeAge, reqChangeEmail, reqChangeNickname, reqChangeSex} from "@/api";
-import {rules} from "@/hook/Rules/rules";
+import {getRules} from "@/hook/Rules/rules";
 
 const store = useAccount()
 const userInfo = reactive(store.userInfo)
+const rules = getRules(userInfo)
+
 
 // 用户账户状态
 const statusLoading = ref(false)

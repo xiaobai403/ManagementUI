@@ -32,9 +32,10 @@
 import PubSub from "pubsub-js";
 import {onMounted, reactive, ref} from "vue";
 import {CLOSE_RESET_PASSWORD} from "@/pattern/eventTypes";
-import {rules} from "@/hook/Rules/rules";
+import {getRules} from "@/hook/Rules/rules";
 import {reqResetPassword} from "@/api";
 import {handleErrorRef, handleRequestRef} from "@/hook/message/handleResponseMessage";
+
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
@@ -49,6 +50,8 @@ const password = reactive({
     password: "",
     confirm: ""
 })
+
+const rules = getRules(password)
 const resetPasswordLoading = ref(false)
 
 function resetPassword(formRef, password) {

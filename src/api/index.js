@@ -1,15 +1,19 @@
 import request from "@/api/request";
 import qs from "qs";
+import mock from "@/api/mock";
 
 export const reqLogin = (username, password) => request.post("/login", qs.stringify({ username, password }))
 export const reqMenu = () => request.get(`menu/`)
 
+export const reqCheckEmail = (email) => request.get(`/check/email/${email}`)
+export const reqCheckNickname = (nickname) => request.get(`/check/nickname/${nickname}`)
+
 // Home
 export const reqUserInfo = () => request.get(`/user/`)
-export const reqOverviewBorrowInfo = () => request.get("/books/overview/borrow")
-export const reqOverviewUserActivityInfo= () => request.get("/user/overview/activity")
-export const reqBookCategoryInfo = () => request.get("/books/overview/category")
-export const reqOverviewInfo = () => request.get("/overview")
+export const reqOverviewBorrowInfo = () => mock.get("/books/overview/borrow")
+export const reqOverviewUserActivityInfo= () => mock.get("/user/overview/activity")
+export const reqBookCategoryInfo = () => mock.get("/books/overview/category")
+export const reqOverviewInfo = () => mock.get("/overview")
 
 //Accounts
 export const reqDeleteUser = (id) => request.delete(`/user/id/${id}`)
@@ -17,11 +21,11 @@ export const reqGetUserByUsername = (username) => request.get(`/user/username/${
 export const reqGetUserByNickname = (nickname) => request.get(`/user/nickname/${nickname}`)
 export const reqResetPassword = (username, password) => request.put("/user/password", qs.stringify({ username, password }))
 export const reqAddUser = (userInfo) => request.post("/user", userInfo)
-export const reqChangeAccountStatus = (id, status) => request.put(`/user/status/${id}`, qs.stringify({ status }))
-export const reqChangeNickname = (id, nickname) => request.put(`/user/nickname/${id}`, qs.stringify({ nickname }))
-export const reqChangeEmail = (id, email) => request.put(`/user/email/${id}`, qs.stringify({ email }))
-export const reqChangeSex = (id, sex) => request.put(`/user/sex/${id}`, qs.stringify({ sex }))
-export const reqChangeAge = (id, age) => request.put(`/user/age/${id}`, qs.stringify({ age }))
+export const reqChangeAccountStatus = (id, status) => request.put(`/user/status/`, qs.stringify({ id, status }))
+export const reqChangeNickname = (id, nickname) => request.put(`/user/nickname/`, qs.stringify({ id, nickname }))
+export const reqChangeEmail = (id, email) => request.put(`/user/email/`, qs.stringify({ id, email }))
+export const reqChangeSex = (id, sex) => request.put(`/user/sex/`, qs.stringify({ id, sex }))
+export const reqChangeAge = (id, age) => request.put(`/user/age/`, qs.stringify({ id, age }))
 
 // Records部分
 export const reqSearchRecordsByBorrowId = (borrowId) => request.get(`/records/borrowId/${borrowId}`)

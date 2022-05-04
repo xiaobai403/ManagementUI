@@ -120,6 +120,10 @@ onMounted(() => {
     // 获取管理员数据
     reqUserInfo().then(response => {
         if (response.code === 200) {
+            response.data.ip.forEach(i => {
+                const dateTime = new Date(i.date)
+                i.date = `${dateTime.getFullYear()}/${dateTime.getMonth() + 1}/${dateTime.getDate()}`
+            })
             Object.assign(userInfo, response.data)
         } else {
             responseError(response)

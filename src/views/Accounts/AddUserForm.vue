@@ -62,13 +62,14 @@
 
 <script setup>
 
-import {computed, reactive, ref} from "vue";
+import {computed, reactive, ref, toRaw} from "vue";
 import PubSub from "pubsub-js";
 import {ok, responseError} from "@/hook/message/handleMessage";
 import {CLOSE_ADD_USER} from "@/pattern/eventTypes";
 import {reqAddUser} from "@/api";
 import {handleErrorRef} from "@/hook/message/handleResponseMessage";
-import {rules} from "@/hook/Rules/rules";
+import {getRules} from "@/hook/Rules/rules";
+// import {rules} from "@/hook/Rules/rules";
 
 const addFormRef = ref(null)
 const userInfo = reactive({
@@ -77,12 +78,13 @@ const userInfo = reactive({
     sex: "",
     age: "",
     status: 0,
-    role: "",
-    avatar: "",
+    role: 0,
+    avatar: null,
     password: "",
     confirm: ""
 })
 
+const rules = getRules(userInfo)
 
 
 // 用户账户状态字符串
@@ -125,7 +127,7 @@ function addUser(formRef, userInfo) {
     formRef.validate((valid) => {
         if (valid) {
             addUserLoading.value = true
-            reqAddUser(userInfo).then(response => {
+            reqAddUser(toRaw(userInfo)).then(response => {
                 addUserLoading.value = false
                 if (response.code === 200) {
                     ok()
