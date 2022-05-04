@@ -36,7 +36,7 @@ export const reqDeleteRecords = (borrowId) => request.delete(`/records/${borrowI
 
 export const reqChangeReturnStatus = (borrowId, status) => request.put(`/records/returnStatus`, qs.stringify({ borrowId, status }))
 export const reqChangeBreachOfContractStatus = (borrowId, status) => request.put(`/records/BreachOfContractStatus`, qs.stringify({ borrowId, status }))
-export const reqChangeRenewNumbers = (borrowId, numbers) => request.put(`/records/renewNumbers`, qs.stringify({ borrowId, numbers }))
+export const reqChangeRenewNumbers = (borrowId, numbers) => request.put(`/records/renewNumber`, qs.stringify({ borrowId, numbers }))
 
 
 // Books部分
