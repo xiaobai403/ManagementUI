@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
 
         .details-info {
             display: grid;
-            grid-template-columns: 260px 260px;
+            grid-template-columns: 350px 350px;
             grid-template-rows: repeat(20px 4);
             row-gap: 10px;
             margin-top: 20px;

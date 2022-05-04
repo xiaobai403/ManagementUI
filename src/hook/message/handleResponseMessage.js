@@ -67,10 +67,11 @@ export const handleErrorReactive = (error, loading, attribute) => {
     promiseError(error)
 }
 
-export const handleRequestReactiveSwitch = (response, loading, attribute, resolve, reject, successCode = 200) => {
+export const handleRequestReactiveSwitch = (response, loading, attribute, entity, entityAttr, resolve, reject, successCode = 200) => {
     loading[attribute] = false
     if (response.code === successCode) {
         ok()
+        entity[entityAttr] = !entity[entityAttr]
         return resolve()
     } else {
         responseError(response)
@@ -91,6 +92,18 @@ export const handleRequestOneAttributeFun = (response, loading, attribute, func,
         func(...args)
     } else {
         responseError(response)
+    }
+}
+
+export const handleRequestReactiveSwitchFun = (response, loading, attribute, func, args, resolve, reject, successCode = 200) => {
+    loading[attribute] = false
+    if (response.code === successCode) {
+        ok()
+        func(...args)
+        return resolve()
+    } else {
+        responseError(response)
+        return reject(response.msg)
     }
 }
 

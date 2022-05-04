@@ -79,12 +79,12 @@
                           autosize
                           show-word-limit
                           maxlength="300"
-                          v-model="book.briefIntroduction"/>
+                          v-model="book.introduction"/>
                 <el-button
                     :disabled="saveButtonStatus.briefIntroduction"
                     type="text"
                     :loading="loading.briefIntroduction"
-                    @click="saveIntroduction(book.isbn, book.briefIntroduction)">保存
+                    @click="saveIntroduction(book.isbn, book.introduction)">保存
                 </el-button>
             </el-form-item>
         </el-form>
@@ -111,7 +111,7 @@ import {
     handleErrorReactive,
     handleErrorReactiveSwitch,
     handleRequestReactive,
-    handleRequestReactiveSwitch
+    handleRequestReactiveSwitch,
 } from "@/hook/message/handleResponseMessage";
 
 const router = useRouter()
@@ -222,8 +222,8 @@ const saveBorrowStatus = () => {
     loading.borrowStatus = true
 
     return new Promise((resolve, reject) => {
-        reqChangeBorrowStatus(book.isbn, book.borrowStatus)
-            .then(response => handleRequestReactiveSwitch(response, loading, "borrowStatus", resolve, reject),
+        reqChangeBorrowStatus(book.isbn, !book.borrowStatus)
+            .then(response => handleRequestReactiveSwitch(response, loading, "borrowStatus",  book, 'borrowStatus', resolve, reject),
                 error => handleErrorReactiveSwitch(error, loading, "borrowStatus", reject))
     })
 }

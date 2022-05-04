@@ -46,7 +46,7 @@ export const reqSearchBooksByAuthor = (author) => request.get(`/books/author/${a
 export const reqSearchBooksByPublisher = (publisher) => request.get(`/books/publisher/${publisher}`)
 
 // export const reqDeleteBooks = (isbn) => mock.delete(`/books/`, qs.stringify({ isbn }))
-export const reqDeleteBooks = (isbn) => request.delete(`/books/${isbn}` )
+export const reqDeleteBooks = (isbn) => request.delete(`/books/isbn/${isbn}` )
 
 export const reqChangeAuthor = (isbn, author) => request.put(`/books/author/`, qs.stringify({ isbn, author }))
 export const reqChangePublisher = (isbn, publisher) => request.put(`/books/publisher/`, qs.stringify({ isbn, publisher }))
