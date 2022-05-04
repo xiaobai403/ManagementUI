@@ -150,12 +150,15 @@ function changeAccountStatus() {
 
     return new Promise((resolve, reject) => {
         reqChangeAccountStatus(userInfo.id, status).then(response => {
-            console.log(response)
             statusLoading.value = false
             if (response.code === 200) {
                 ok()
                 // 修改状态
-                userInfo.status = response.data.status
+                if (userInfo.status === 0) {
+                    userInfo.status = 1
+                } else if (userInfo.status === 1) {
+                    userInfo.status = 0
+                }
                 resolve()
             } else {
                 responseError(response)
